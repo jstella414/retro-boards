@@ -7,58 +7,44 @@ import CardDisplay from './assets/components/card'
 
 
 function App() {
-  
-  // const [count, setCount] = useState(0)
   const [actionItems, setActionItems] = useState([
     '',
-
   ]);
   const [actionItems2, setActionItems2] = useState([
     '',
-
   ]);
   const [actionItems3, setActionItems3] = useState([
     '',
-
   ]);
 
+  const newItem = ()  => {setActionItems([...actionItems, '']);};
+  const newItem2 = () => {setActionItems2([...actionItems2, '']);};    
+  const newItem3 = () => {setActionItems3([...actionItems3, '']);};       
 
-  const newItem = () => {
-    /**
-     * Must clone instead of actionItem.push.
-     * Otherwise, React won't detect a change and re-render
-     */    setActionItems([...actionItems, '']);
-  };
+  const updateItem = (userInput, index) =>{const newActionItems = [...actionItems]; newActionItems[index] = userInput; setActionItems(newActionItems);}
+  const updateItem2 = (userInput, index) =>{const newActionItems = [...actionItems2]; newActionItems[index] = userInput; setActionItems2(newActionItems);}
+  const updateItem3 = (userInput, index) =>{const newActionItems = [...actionItems3]; newActionItems[index] = userInput; setActionItems3(newActionItems);}
 
 
-  const updateItem = (userInput, index) => {
-    /**
-     * Finds the item to update by the "itemToChangeIndex" (position in the array)
-     * Then makes the new change. The text for the change is "userInput"
-     */
-    const newActionItems = [...actionItems]; // Again, must clone instead of array.push.
-    newActionItems[index] = userInput;
-    setActionItems(newActionItems);
+  const deleteItem =(index) =>{setActionItems(actionItems.filter((_, currentIndex) => currentIndex !== index))};
+  const deleteItem2 =(index) =>{setActionItems2(actionItems2.filter((_, currentIndex) => currentIndex !== index))};
+  const deleteItem3 =(index) =>{(actionItems3.filter((_, currentIndex) => currentIndex !== index))};
 
-  };
-  const deleteItem = (index) => {
-    /**
-     * In order to delete, we need to know the position in the array
-     * The "itemToDeleteIndex" is the position in the array of the item that we want to delete
-     * This goes in a loop. It compares the index for each item in the loop with the "itemToDeleteIndex"
-     * If they match, it remove the item from the array
-     */
-    setActionItems(
-      actionItems.filter((_, currentIndex) => currentIndex !== index)
-    );
-  };
+  const moveItemLeft = (index) =>{
+      console.log("hello")
+      ///move left move right. get the index of each card //
+    //if card is action item1 run newItem for card next to it? 
+    
+  }
+
+ const moveItemRight = (index)=>{
+  console.log("hello")
+ }
 
   return (
     <>
 
-      {/* <!-- START OF THE HTML CODE THAT YOU WILL USE --> */}
 
-      {/* <!-- The className "row" is for the layout changer --> */}
       <main className="content row">
         <h1>Retro Board</h1>
         {/* <!-- Layout changer --> */}
@@ -80,6 +66,7 @@ function App() {
               aria-label="Add new card"
               title="Add new card"
               onClick={newItem}
+              id = "went_well"
             >
               +
             </button>
@@ -90,9 +77,10 @@ function App() {
                
     
                 {/* <!-- A retro card (retrospective item) --> */}
-
+                
                 {actionItems.map((item, index)=>{
-                  return <div key={`action-item-${index}`} className="RetroCard" aria-label="Retro card">
+                  
+                  return<div key={`action-item-${index}`} className="RetroCard" aria-label="Retro card">
                   
                   <textarea
                     value={item}
@@ -109,6 +97,8 @@ function App() {
                       type="button"
                       className="button button-left"
                       title="Move left"
+                      onClick={() => moveItemLeft(index)}
+
                     >
                       <img
                         src="img/angleLeft.svg"
@@ -152,6 +142,7 @@ function App() {
                         type="button"
                         className="button button-right"
                         title="Move right"
+                        onClick={() => moveItemRight(index)}
                       >
                         <img
                           src="img/angleRight.svg"
@@ -178,12 +169,13 @@ function App() {
               className="ButtonAdd button button-default"
               aria-label="Add to new card"
               title="Add to new card"
-              onClick={newItem}
+              onClick={newItem2}
+              
             >
               +
             </button>
 
-            {actionItems.map((item, index)=>{
+            {actionItems2.map((item, index)=>{
                   return <div key={`action-item-${index}`} className="RetroCard" aria-label="Retro card">
                   
                   <textarea
@@ -192,7 +184,7 @@ function App() {
                     placeholder="Enter text here"
                     aria-label="Enter text here"
                     rows="1"
-                    onChange={(e) => updateItem(e.target.value, index)}
+                    onChange={(e) => updateItem2(e.target.value, index)}
                   >
                   </textarea>
     
@@ -201,6 +193,7 @@ function App() {
                       type="button"
                       className="button button-left"
                       title="Move left"
+                      onClick={() => moveItemLeft(index)}
                     >
                       <img
                         src="img/angleLeft.svg"
@@ -213,7 +206,7 @@ function App() {
                       type="button"
                       className="button button-delete"
                       title="Delete"
-                      onClick={() => deleteItem(index)}
+                      onClick={() => deleteItem2(index)}
                     >
                       <img
                         src="img/delete.svg"
@@ -244,6 +237,7 @@ function App() {
                         type="button"
                         className="button button-right"
                         title="Move right"
+                        onClick={() => moveItemRight(index)}
                       >
                         <img
                           src="img/angleRight.svg"
@@ -266,12 +260,12 @@ function App() {
               className="ButtonAdd button button-default"
               aria-label="Add to new card"
               title="Add to new card"
-              click={newItem}
+              onClick={newItem3}
             >
               +
             </button>
 
-            {actionItems2.map((item, index)=>{
+            {actionItems3.map((item, index)=>{
                   return <div key={`action-item-${index}`} className="RetroCard" aria-label="Retro card">
                   
                   <textarea
@@ -280,7 +274,7 @@ function App() {
                     placeholder="Enter text here"
                     aria-label="Enter text here"
                     rows="1"
-                    onChange={(e) => updateItem(e.target.value, index)}
+                    onChange={(e) => updateItem3(e.target.value, index)}
                   >
                   </textarea>
     
@@ -301,7 +295,7 @@ function App() {
                       type="button"
                       className="button button-delete"
                       title="Delete"
-                      onClick={() => deleteItem(index)}
+                      onClick={() => deleteItem3(index)}
                     >
                       <img
                         src="img/delete.svg"
@@ -332,6 +326,7 @@ function App() {
                         type="button"
                         className="button button-right"
                         title="Move right"
+                        onClick={() => moveItemRight(index)}
                       >
                         <img
                           src="img/angleRight.svg"
