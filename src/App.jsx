@@ -28,17 +28,23 @@ function App() {
 
   const deleteItem =(index) =>{setActionItems(actionItems.filter((_, currentIndex) => currentIndex !== index))};
   const deleteItem2 =(index) =>{setActionItems2(actionItems2.filter((_, currentIndex) => currentIndex !== index))};
-  const deleteItem3 =(index) =>{(actionItems3.filter((_, currentIndex) => currentIndex !== index))};
+  const deleteItem3 =(index) =>{setActionItems3(actionItems3.filter((_, currentIndex) => currentIndex !== index))};
 
-  const moveItemLeft = (index) =>{
-      console.log("hello")
+  const moveItemLeft = (item, index) =>{
+    newItem2()
+    deleteItem(index)
       ///move left move right. get the index of each card //
     //if card is action item1 run newItem for card next to it? 
-    
+
   }
 
- const moveItemRight = (index)=>{
-  console.log("hello")
+ const moveItemRight = (item, index)=>{
+
+ 
+    newItem2(item) 
+    deleteItem(index)
+
+   
  }
 
   return (
@@ -79,8 +85,8 @@ function App() {
                 {/* <!-- A retro card (retrospective item) --> */}
                 
                 {actionItems.map((item, index)=>{
-                  
-                  return<div key={`action-item-${index}`} className="RetroCard" aria-label="Retro card">
+              
+                  return<div key={`action-item-${index}`}  className="RetroCard" aria-label="Retro card">
                   
                   <textarea
                     value={item}
@@ -97,7 +103,7 @@ function App() {
                       type="button"
                       className="button button-left"
                       title="Move left"
-                      onClick={() => moveItemLeft(index)}
+                      onClick={() => moveItemLeft(item, index)}
 
                     >
                       <img
@@ -142,7 +148,7 @@ function App() {
                         type="button"
                         className="button button-right"
                         title="Move right"
-                        onClick={() => moveItemRight(index)}
+                        onClick={() => moveItemRight(item, index)}
                       >
                         <img
                           src="img/angleRight.svg"
@@ -157,7 +163,7 @@ function App() {
               })}  
             </div>
     
-                  {/* <CardDisplay actionItems = {actionItems} setActionItems = {setActionItems} addNewCard ={addNewCard} /> */}
+                 {/* <CardDisplay actionItems = {actionItems} setActionItems = {setActionItems} addNewCard ={addNewCard} /> */}
             </div>
           </div>
 
@@ -193,7 +199,7 @@ function App() {
                       type="button"
                       className="button button-left"
                       title="Move left"
-                      onClick={() => moveItemLeft(index)}
+                      onClick={() => moveItemLeft(item, index)}
                     >
                       <img
                         src="img/angleLeft.svg"
@@ -237,7 +243,7 @@ function App() {
                         type="button"
                         className="button button-right"
                         title="Move right"
-                        onClick={() => moveItemRight(index)}
+                        onClick={() => moveItemRight(item, index)}
                       >
                         <img
                           src="img/angleRight.svg"
@@ -326,7 +332,7 @@ function App() {
                         type="button"
                         className="button button-right"
                         title="Move right"
-                        onClick={() => moveItemRight(index)}
+                        onClick={() => moveItemRight(item, index)}
                       >
                         <img
                           src="img/angleRight.svg"
