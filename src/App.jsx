@@ -33,9 +33,6 @@ function App() {
   const moveItemLeft = (item, index) =>{
     newItem2()
     deleteItem(index)
-      ///move left move right. get the index of each card //
-    //if card is action item1 run newItem for card next to it? 
-
   }
 
  const moveItemRight = (item, index)=>{
@@ -53,18 +50,14 @@ function App() {
 
       <main className="content row">
         <h1>Retro Board</h1>
-        {/* <!-- Layout changer --> */}
         <div>
           Layout &nbsp;<button className="button button-default">Column</button>
       
         </div>
-        {/* <!-- The className "row" is for the layout changer --> */}
         <div className="RetroApp row">
       
-          {/* <!-- Retro category --> */}
           <div className="RetroCategory RetroCategory-1">
             <h2>Went Well</h2>
-            {/* <!-- Add a new card button --> */}
             
             <button
               type="button"
@@ -79,10 +72,8 @@ function App() {
             {/* <!-- A retro card (retrospective item) --> */}
             <div className="RetroCard" aria-label="Retro card">
             <div className= "RetroCategory RetroCategory-1">
-                {/* <!-- Add a new card button --> */}
                
     
-                {/* <!-- A retro card (retrospective item) --> */}
                 
                 {actionItems.map((item, index)=>{
               
@@ -163,11 +154,9 @@ function App() {
               })}  
             </div>
     
-                 {/* <CardDisplay actionItems = {actionItems} setActionItems = {setActionItems} addNewCard ={addNewCard} /> */}
             </div>
           </div>
 
-          {/* <!-- Retro category --> */}
           <div className="RetroCategory RetroCategory-2">
             <h2>To Improve</h2>
             <button
@@ -258,7 +247,6 @@ function App() {
               })}  
           </div>
 
-          {/* <!-- Retro category --> */}
           <div className="RetroCategory RetroCategory-3">
             <h2>Action Items</h2>
             <button
@@ -349,7 +337,6 @@ function App() {
         </div>
       </main>
 
-      {/* <!-- END OF THE HTML CODE THAT YOU WILL USE --> */}
     </>
   )
 }
