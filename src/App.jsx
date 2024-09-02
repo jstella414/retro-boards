@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -17,6 +17,17 @@ function App() {
     '',
   ]);
 
+  
+
+  
+const [direction, setDirection] = useState("");
+
+
+
+  const WentWell = document.querySelectorAll("#WentWell")
+  const ToImprove = document.querySelectorAll("#toImprove")
+  const ActionItems_html = document.querySelectorAll("#actionItems")
+
   const newItem = ()  => {setActionItems([...actionItems, '']);};
   const newItem2 = () => {setActionItems2([...actionItems2, '']);};    
   const newItem3 = () => {setActionItems3([...actionItems3, '']);};       
@@ -30,19 +41,47 @@ function App() {
   const deleteItem2 =(index) =>{setActionItems2(actionItems2.filter((_, currentIndex) => currentIndex !== index))};
   const deleteItem3 =(index) =>{setActionItems3(actionItems3.filter((_, currentIndex) => currentIndex !== index))};
 
-  const moveItemLeft = (item, index) =>{
+ const moveItemRight = (direction, index)=>{
+  if(direction === "moveRight-WentWell"){
+    console.log("moveRight-WentWell")
     newItem2()
     deleteItem(index)
-  }
 
- const moveItemRight = (item, index)=>{
-
- 
-    newItem2(item) 
-    deleteItem(index)
+  }else if(direction === "moveRight-toImprove"){
+    console.log("moveRight-toImprove")
+    newItem3()
+    deleteItem2(index)
+  }else if(direction === "moveRight-actionItems"){
+    console.log("moveRight-actionItems")
+    
+}else{
+console.log("no-option")
+}
 
    
  }
+
+ const moveItemLeft = (direction, index) =>{
+
+  // console.log(direction)
+    if(direction === "moveLeft-WentWell"){
+      console.log("moveLeft-WentWell")
+
+    }else if(direction === "moveLeft-toImprove"){
+      console.log("moveLeft-toImprove")
+      newItem()
+      deleteItem2(index)
+    }else if(direction === "moveLeft-actionItems"){
+      console.log("moveLeft-actionItems")
+      newItem2()
+      deleteItem3(index)
+  }else{
+    newItem2()
+    deleteItem3(index)
+  }
+}
+
+
 
   return (
     <>
@@ -76,15 +115,14 @@ function App() {
     
                 
                 {actionItems.map((item, index)=>{
-              
-                  return<div key={`action-item-${index}`}  className="RetroCard" aria-label="Retro card">
-                  
+                  return<div  key={`action-items-${index}`} id = "WentWell"  className="RetroCard" aria-label="Retro card">
                   <textarea
                     value={item}
                     className="textbox"
                     placeholder="Enter text here"
                     aria-label="Enter text here"
                     rows="1"
+                    
                     onChange={(e) => updateItem(e.target.value, index)}
                   >
                   </textarea>
@@ -94,14 +132,14 @@ function App() {
                       type="button"
                       className="button button-left"
                       title="Move left"
-                      onClick={() => moveItemLeft(item, index)}
-
+                      onClick={(e)=>{moveItemLeft(e.target.name, index)} }
                     >
                       <img
                         src="img/angleLeft.svg"
                         alt="Move left"
                         width="12"
                         height="12"
+                        name = "moveLeft-WentWell"
                       />
                     </button>
                     <button
@@ -139,19 +177,23 @@ function App() {
                         type="button"
                         className="button button-right"
                         title="Move right"
-                        onClick={() => moveItemRight(item, index)}
+                        onClick={(e) => moveItemRight(e.target.name, index)}
                       >
                         <img
                           src="img/angleRight.svg"
                           alt="Move right"
                           width="12"
                           height="12"
+                          name = "moveRight-WentWell"
                         />
                       </button>
                     </div>
                   </div>
                 </div>
-              })}  
+              })
+
+              
+              }  
             </div>
     
             </div>
@@ -169,9 +211,10 @@ function App() {
             >
               +
             </button>
+            
 
             {actionItems2.map((item, index)=>{
-                  return <div key={`action-item-${index}`} className="RetroCard" aria-label="Retro card">
+                  return <div key={`action-items-2${index}`} id = "toImprove" className="RetroCard" aria-label="Retro card">
                   
                   <textarea
                     value={item}
@@ -188,13 +231,14 @@ function App() {
                       type="button"
                       className="button button-left"
                       title="Move left"
-                      onClick={() => moveItemLeft(item, index)}
+                      onClick={(e) =>{moveItemLeft(e.target.name, index)} }
                     >
                       <img
                         src="img/angleLeft.svg"
                         alt="Move left"
                         width="12"
                         height="12"
+                        name = "moveLeft-toImprove"
                       />
                     </button>
                     <button
@@ -232,13 +276,14 @@ function App() {
                         type="button"
                         className="button button-right"
                         title="Move right"
-                        onClick={() => moveItemRight(item, index)}
+                        onClick={(e) => moveItemRight(e.target.name, index)}
                       >
                         <img
                           src="img/angleRight.svg"
                           alt="Move right"
                           width="12"
                           height="12"
+                          name="moveRight-toImprove"
                         />
                       </button>
                     </div>
@@ -260,7 +305,7 @@ function App() {
             </button>
 
             {actionItems3.map((item, index)=>{
-                  return <div key={`action-item-${index}`} className="RetroCard" aria-label="Retro card">
+                  return <div key={`action-items-3${index}`} id = "actionItems" className="RetroCard" aria-label="Retro card">
                   
                   <textarea
                     value={item}
@@ -277,12 +322,14 @@ function App() {
                       type="button"
                       className="button button-left"
                       title="Move left"
+                      onClick={(e) => {moveItemLeft(e.target.name, index)}}
                     >
                       <img
                         src="img/angleLeft.svg"
                         alt="Move left"
                         width="12"
                         height="12"
+                        name = "moveLeft-actionItems"
                       />
                     </button>
                     <button
@@ -320,25 +367,32 @@ function App() {
                         type="button"
                         className="button button-right"
                         title="Move right"
-                        onClick={() => moveItemRight(item, index)}
+                        onClick={(e) => moveItemRight(e.target.name, index)}
                       >
                         <img
                           src="img/angleRight.svg"
                           alt="Move right"
                           width="12"
                           height="12"
+                          name = "moveRight-actionItems"
                         />
                       </button>
                     </div>
                   </div>
                 </div>
-              })}  
+              })}
+
+              
+    
           </div>
         </div>
       </main>
-
     </>
+
+
   )
+
+  
 }
 
 export default App
